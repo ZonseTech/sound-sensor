@@ -23,25 +23,21 @@ def soundSensorHandler(argument):
       print sound_peak
     current_time = int(round(time.time() * 1000)
 
-   if sound_peak == 2:
+   if sound_peak == 6:
     if LED_STATE:
       GPIO.output(green_LED_pin, GPIO.LOW)
       print "Turned of LED"
+      LED_STATE = False
     else:
       GPIO.output(green_LED_pin, GPIO.HIGH)
       print "Turned of LED"
-
-
-
-    
-    
-    
-    
+      LED_STATE = True
+   else:
+     print "No Sound Detected"
   
+ GPIO.add_event_detect(soundSensorPin, GPIO.RISING, callback=soundSensorHandler, bouncetime=300)
+
+GPIO.add_event_detect(soundSensorPin, GPIO.RISING, callback=soundSensorHandler, bouncetime = 300)
+
 while True:
-  print GPIO.input(sound_sensor_pin)
-  
-  if GPIO.input(sound_sensor_pin) == 1:
-    GPIO.output(green_LED_pin, GPIO.HIGH)
-  else:
-    GPIO.output(green_LED_pin, GPIO.LOW)
+  time.sleep(5)
